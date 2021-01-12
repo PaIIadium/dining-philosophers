@@ -40,13 +40,12 @@ func (h *host) wantToEat(ph *philo) bool {
 		numNeighbor2 = ph.number - 1
 	}
 	h.mut.Lock()
+	defer h.mut.Unlock()
 	neighborsNotEat := !h.isEating(numNeighbor1) && !h.isEating(numNeighbor2)
 	if neighborsNotEat {
 		h.eatingPhiloNumbers = append(h.eatingPhiloNumbers, ph.number)
-		h.mut.Unlock()
 		return true
 	}
-	h.mut.Unlock()
 	return false
 }
 
